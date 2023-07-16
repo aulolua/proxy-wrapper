@@ -1,13 +1,6 @@
 # Proxy Wrapper
 
-Proxy Wrapper is a Node.js module developed by aulolua that provides a convenient way to interact with the Cloudflare Warp proxy server. It allows you to manage the proxy settings, check the IP address, and retrieve the best proxies with the lowest latencies.
-
-## Prerequisites
-
-Before using Proxy Wrapper, ensure you have the following prerequisites installed:
-
-- [cURL](https://curl.se/) - Command-line tool for making HTTP requests.
-- [Cloudflare Warp CLI](https://developers.cloudflare.com/warp-cli) - Command-line interface for managing Cloudflare Warp.
+Proxy Wrapper is a Node.js module developed by aulolua that provides a convenient way to interact with the Cloudflare Warp proxy server. It allows you to manage the proxy settings, check the IP address, and perform other related operations.
 
 ## Installation
 
@@ -27,12 +20,14 @@ const Warp = require('proxy-wrapper');
 
 ### Class: Warp
 
+The `Warp` class represents the Cloudflare Warp proxy server.
+
 #### Constructor
 
-The `Warp` class represents the Cloudflare Warp proxy server. To create an instance of the `Warp` class, use the following constructor:
+To create an instance of the `Warp` class, use the following constructor:
 
 ```javascript
-const warp = new Warp(port, warpPath);
+const proxy = new Warp(port, warpPath);
 ```
 
 - `port` (number): The proxy port to be hosted on localhost, which will redirect to the proxy server.
@@ -67,14 +62,6 @@ Returns: Promise\<string> - The IP address.
 Disconnects the Warp proxy server.
 
 Returns: void
-
-##### getBestProxies(count)
-
-Retrieves the best proxies with the lowest latencies.
-
-- `count` (number): The number of best proxies to retrieve.
-
-Returns: Promise\<string[]> - An array of proxy URLs.
 
 #### Static Methods
 
@@ -123,40 +110,61 @@ Returns: Promise\<string> - The IP address.
 
 ## Examples
 
+### Example 1: Basic Usage
+
 ```javascript
 const Warp = require('proxy-wrapper');
 
 // Create a new Warp instance with default settings
-const warp = new Warp(8080);
+const proxy = new Warp(8080);
 
 // Set a new proxy port
-warp.setPort(8888);
+proxy.setPort(8888);
 
 // Reset the Warp proxy server
-warp.reset();
+proxy.reset();
 
-// Check the IPv6 address
-warp.checkip('6')
+// Check the IPv4 address
+proxy.checkip('4')
   .then(ip => {
-    console.log('IPv6 Address:', ip);
+    console.log('IPv4 Address:', ip);
   })
   .catch(error => {
     console.error('Error:', error);
   });
 
-// Disconnect from the Warp proxy server
-warp.disconnect();
-
-// Get the 5 best proxies
-warp.getBestProxies(5)
-  .then(proxies => {
-    console.log('Best Proxies:', proxies);
-  })
-  .catch(error => {
-    console.error('Error:', error);
-  });
+// Disconnect from the Warp proxy server after a delay
+setTimeout(() => {
+  proxy.disconnect();
+  console.log('Disconnected from Warp proxy server.');
+}, 5000);
 ```
+
+This example creates a new `Warp` instance with a proxy port of 8080. It then sets a new proxy port to 8888 and resets the Warp proxy server. Next, it checks the IPv4 address using the `checkip` method. Finally, it disconnects from the Warp proxy server after a 5-second delay.
+
+### Example 2: Checking IP Address and Resetting
+
+```javascript
+const Warp = require('proxy-wrapper');
+
+// Create a new Warp instance with default settings
+const proxy = new Warp(8888);
+console.log(proxy);
+
+(async () => {
+  // Reset the Warp proxy server
+  proxy.reset();
+
+  const time = Date.now();
+  const ip = await proxy.checkip();
+  console.log(`[${Date.now() - time}ms]: IP Address ${ip}`);
+})();
+```
+
+This example creates a new `Warp` instance with a proxy port of 8888. It then logs the `proxy` object to the console. After that, it resets the Warp proxy server and checks the IP address using the `checkip` method. The IP address is logged along with the elapsed time.
 
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
+
+Note: The provided examples demonstrate the basic usage of the `proxy-wrapper` module. You can modify and expand upon these examples to suit your specific needs and requirements.
