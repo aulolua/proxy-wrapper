@@ -1,6 +1,6 @@
 # Proxy Wrapper
 
-Proxy Wrapper is a Node.js module developed by aulolua that provides a convenient way to interact with the Cloudflare Warp proxy server. It allows you to manage the proxy settings, check the IP address, and perform other related operations.
+Proxy Wrapper is a Node.js module developed by aulolua that provides a convenient way to interact with the Cloudflare Warp proxy server. It allows you to manage the proxy settings, check the IP address, and retrieve the best proxies with the lowest latencies.
 
 ## Prerequisites
 
@@ -13,7 +13,7 @@ Before using Proxy Wrapper, ensure you have the following prerequisites installe
 
 To use Proxy Wrapper in your Node.js project, you need to install it using npm:
 
-```
+```bash
 npm install proxy-wrapper
 ```
 
@@ -67,6 +67,14 @@ Returns: Promise\<string> - The IP address.
 Disconnects the Warp proxy server.
 
 Returns: void
+
+##### getBestProxies(count)
+
+Retrieves the best proxies with the lowest latencies.
+
+- `count` (number): The number of best proxies to retrieve.
+
+Returns: Promise\<string[]> - An array of proxy URLs.
 
 #### Static Methods
 
@@ -138,6 +146,15 @@ warp.checkip('6')
 
 // Disconnect from the Warp proxy server
 warp.disconnect();
+
+// Get the 5 best proxies
+warp.getBestProxies(5)
+  .then(proxies => {
+    console.log('Best Proxies:', proxies);
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
 ```
 
 ## License
