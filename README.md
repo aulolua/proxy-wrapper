@@ -1,5 +1,7 @@
 # [Proxy Wrapper](https://github.com/aulolua/proxy-wrapper)
-
+<head>
+  <meta name="google-site-verification" content="VWRCPP4JmTaEsf3rl1XXSkGgCWr-D7oOp9mUvwleaZU" />
+</head>
 Proxy Wrapper is a Node.js module developed by aulolua that provides a convenient way to interact with the Cloudflare Warp proxy server. It allows you to manage the proxy settings, check the IP address, and perform other related operations. It basically allows you to get the best proxies with the lowest latencies. :D
 
 ## Installation
